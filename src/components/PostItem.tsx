@@ -29,13 +29,16 @@ export const PostItem = ({ post }: Props) => {
   const { user, profile } = useAuth();
 
   return (
-    <div className="relative group ">
+    <div className="relative group p-4 min-h-screen">
       <div className=" pointer-events-none flex flex-row items-center"></div>
 
       <div className="border-b border-gray-900 rounded-lg shadow-sm max-w-[470px] mx-auto my-4 ">
         {/* Header: Avatar and Title */}
         <div className="flex items-center space-x-2 overflow-auto  ">
-          <Link to={`/profile`} className="block relative z-10">
+          <Link
+            to={`/profile/${post.creator_id}`}
+            className="block relative z-10"
+          >
             {post.image_url ? (
               <img
                 src={

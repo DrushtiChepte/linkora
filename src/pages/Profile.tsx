@@ -82,7 +82,10 @@ const Profile = () => {
                         {post.location || "Untitled Post"}
                       </h3>
                       {isCurrentUser && (
-                        <Button onClick={() => handleDelete(post.id)}>
+                        <Button
+                          onClick={() => handleDelete(post.id)}
+                          className="mb-2 cursor-pointer"
+                        >
                           <img
                             src="/assets/icons/delete.svg"
                             alt="delete btn"

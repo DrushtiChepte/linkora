@@ -10,8 +10,8 @@ const Topbar = () => {
     profile.profilePhoto || "/assets/icons/profile-placeholder.svg";
 
   const handleSignOut = async () => {
-    await signOut(); // Wait for sign out
-    navigate("/"); // Redirect to home or login page
+    await signOut();
+    navigate("/");
   };
 
   return (
@@ -43,7 +43,10 @@ const Topbar = () => {
             )}
           </div>
 
-          <Link to={"/"} className="flex-center gap-3 items-center">
+          <Link
+            to={`/profile/${user?.id}`}
+            className="flex-center gap-3 items-center"
+          >
             <img
               src={userImage}
               alt="profile"

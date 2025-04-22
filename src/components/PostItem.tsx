@@ -42,7 +42,7 @@ export const PostItem = ({ post }: Props) => {
             {post.image_url ? (
               <img
                 src={
-                  profile.profilePhoto ||
+                  post.profiles?.profile_photo ||
                   user?.user_metadata.avatar_url ||
                   "/assets/icons/profile-placeholder.svg"
                 }
@@ -52,7 +52,7 @@ export const PostItem = ({ post }: Props) => {
             ) : (
               <img
                 src={
-                  profile.profilePhoto ||
+                  post.profiles?.profile_photo ||
                   "/assets/icons/profile-placeholder.svg"
                 }
                 alt="User Avatar"
@@ -63,7 +63,7 @@ export const PostItem = ({ post }: Props) => {
 
           <div className="flex flex-col flex-1">
             <div className="text-[18px] leading-[22px] font-semibold ">
-              {profile.username ||
+              {post.profiles?.username ||
                 user?.user_metadata.user_name ||
                 user?.user_metadata.full_name ||
                 "User"}

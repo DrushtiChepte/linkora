@@ -10,18 +10,29 @@ export interface Post {
   image_url: string;
   created_at: string;
   creator_id: string;
+  profiles: {
+    username: string;
+    profile_photo: string;
+  };
 }
 
 const fetchPosts = async () => {
   const { data, error } = await supabase
     .from("posts")
-    .select("*")
+    .select(
+      `
+      *,
+      profiles:creator_id (
+        username,
+        profile_photo
+      )
+    `
+    )
     .order("created_at", { ascending: false });
 
-  if (error) {
-    throw new Error(error.message);
-  }
-  return data as Post[];
+  if (error) throw new Error(error.message);
+
+  return data as any[]; // We'll fix type next
 };
 
 export const PostList = () => {

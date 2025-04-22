@@ -26,7 +26,7 @@ const getTimeAgo = (timestamp: string | number | Date): string => {
 };
 
 export const PostItem = ({ post }: Props) => {
-  const { user, profile } = useAuth();
+  const { user } = useAuth();
 
   return (
     <div className="relative group p-4 min-h-screen">
@@ -43,7 +43,6 @@ export const PostItem = ({ post }: Props) => {
               <img
                 src={
                   post.profiles?.profile_photo ||
-                  user?.user_metadata.avatar_url ||
                   "/assets/icons/profile-placeholder.svg"
                 }
                 alt="User Avatar"
@@ -63,10 +62,7 @@ export const PostItem = ({ post }: Props) => {
 
           <div className="flex flex-col flex-1">
             <div className="text-[18px] leading-[22px] font-semibold ">
-              {post.profiles?.username ||
-                user?.user_metadata.user_name ||
-                user?.user_metadata.full_name ||
-                "User"}
+              {post.profiles?.username || "User"}
               <span className="text-[16px] text-gray-400 font-normal">
                 {" "}
                 •{" "}
@@ -108,12 +104,7 @@ export const PostItem = ({ post }: Props) => {
 
         {/* Caption */}
         <div className=" leading-[140%] lg:base-medium py-5 flex gap-2">
-          <p className="font-bold">
-            {profile.username ||
-              user?.user_metadata.user_name ||
-              user?.user_metadata.full_name ||
-              "User"}{" "}
-          </p>
+          <p className="font-bold">{post.profiles?.username || "User"} </p>
           <p>{post.caption}</p>
         </div>
       </div>

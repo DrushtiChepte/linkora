@@ -1,7 +1,9 @@
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/supabase-client";
+import { Button } from "@headlessui/react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
+import { toast } from "sonner";
 
 const Profile = () => {
   const { user, profile } = useAuth();
@@ -25,6 +27,16 @@ const Profile = () => {
   useEffect(() => {
     if (id) fetchPosts();
   }, [id]);
+
+  const handleDelete = async (postId: string) => {
+    const { error } = await supabase.from("posts").delete().eq("id", postId);
+    if (error) {
+      console.error("Error deleting post:", error.message);
+    } else {
+      setPosts((prev) => prev.filter((post) => post.id !== postId));
+      toast.success("Post deleted successfully!");
+    }
+  };
 
   return (
     <div className="min-h-screen flex justify-center w-full px-4 pt-10 pb-20 custom-scrollbar">
@@ -65,9 +77,19 @@ const Profile = () => {
                     key={post.id}
                     className="bg-[#1F1F22] p-4 rounded-xl shadow-md hover:shadow-lg transition duration-300"
                   >
-                    <h3 className="font-semibold  mb-2">
-                      {post.location || "Untitled Post"}
-                    </h3>
+                    <div className="flex items-center justify-between ">
+                      <h3 className="font-semibold  mb-2">
+                        {post.location || "Untitled Post"}
+                      </h3>
+                      {isCurrentUser && (
+                        <Button onClick={() => handleDelete(post.id)}>
+                          <img
+                            src="/assets/icons/delete.svg"
+                            alt="delete btn"
+                          />
+                        </Button>
+                      )}
+                    </div>
                     <img
                       src={post.image_url}
                       alt="post"

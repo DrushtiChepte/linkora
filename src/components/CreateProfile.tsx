@@ -13,8 +13,8 @@ const CreateProfile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoading && user && !profile?.username) {
-      console.log("💥 Modal shown: profile incomplete after load");
+    if (!isLoading && user && profile && !profile.username) {
+      console.log("Modal shown: profile incomplete after full load");
       setIsOpen(true);
     }
   }, [user, profile, isLoading]);

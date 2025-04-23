@@ -61,7 +61,7 @@ const Profile = () => {
         {/* Header Section */}
         <div className="flex items-center gap-5 mb-8 w-full max-w-2xl p-6 mt-10 md:p-10 rounded-2xl shadow-lg border border-white/30">
           <img
-            src={profileData.profilePhoto || "/default-avatar.png"}
+            src={profileData.profile_photo || "/default-avatar.png"}
             alt="profile"
             className="w-20 h-20 rounded-full border border-white/80 shadow-sm object-cover"
           />

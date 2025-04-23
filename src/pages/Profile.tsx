@@ -1,15 +1,29 @@
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/supabase-client";
-import { Button } from "@headlessui/react";
+import { Button } from "../components/ui/button";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import Loader from "@/components/Loader";
+
+type Post = {
+  id: string;
+  image_url: string;
+  caption: string;
+  location?: string;
+};
+
+type Profile = {
+  id: string;
+  username: string;
+  profile_photo?: string;
+};
 
 const Profile = () => {
   const { user } = useAuth();
   const { id } = useParams();
-  const [posts, setPosts] = useState<any[]>([]);
-  const [profileData, setProfile] = useState<any>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [profileData, setProfile] = useState<Profile | null>(null);
 
   const isCurrentUser = user?.id === id;
 
@@ -54,6 +68,13 @@ const Profile = () => {
       toast.success("Post deleted successfully!");
     }
   };
+  if (!profileData) {
+    return (
+      <div className="text-center mt-20 text-white">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex justify-center w-full px-4 pt-10 pb-20 custom-scrollbar">
@@ -61,7 +82,10 @@ const Profile = () => {
         {/* Header Section */}
         <div className="flex items-center gap-5 mb-8 w-full max-w-2xl p-6 mt-10 md:p-10 rounded-2xl shadow-lg border border-white/30">
           <img
-            src={profileData.profile_photo || "/default-avatar.png"}
+            src={
+              profileData.profile_photo ||
+              "/assets/icons/profile-placeholder.svg"
+            }
             alt="profile"
             className="w-20 h-20 rounded-full border border-white/80 shadow-sm object-cover"
           />

@@ -8,7 +8,7 @@ import Loader from "@/components/Loader";
 
 interface SavedPost {
   id: string;
-  posts: Post; // Adjust this type based on the structure of your "posts"
+  posts: Post;
 }
 
 const SavedPosts = () => {
@@ -19,7 +19,20 @@ const SavedPosts = () => {
   const fetchSavedPosts = async () => {
     const { data: savedPosts, error } = await supabase
       .from("liked_posts")
-      .select("* , posts: post_id( * )")
+      .select(
+        `
+    *,
+    posts: post_id (
+      *,
+      profiles:creator_id (
+        id,
+        username,
+        profile_photo,
+        location
+      )
+    )
+  `
+      )
       .eq("user_id", user?.id)
       .eq("is_saved", true);
 

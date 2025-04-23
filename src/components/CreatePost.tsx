@@ -46,8 +46,14 @@ export const CreatePost = () => {
   const Navigate = useNavigate();
 
   const { mutate, isPending, isError } = useMutation({
-    mutationFn: (data: { post: postInput; imageFile: File }) => {
-      return createPost(data.post, data.imageFile);
+    mutationFn: (data: { post: postInput; imageFile: File }) =>
+      createPost(data.post, data.imageFile),
+    onSuccess: () => {
+      toast.success("Post created successfully!");
+      Navigate("/");
+    },
+    onError: (error: any) => {
+      toast.error(error.message || "Failed to create post.");
     },
   });
 
@@ -55,8 +61,6 @@ export const CreatePost = () => {
     e.preventDefault();
     if (!selectedFile) return;
     mutate({ post: { location, caption }, imageFile: selectedFile });
-    toast("Post created successfully!");
-    Navigate("/");
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {

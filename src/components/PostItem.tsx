@@ -29,10 +29,10 @@ export const PostItem = ({ post }: Props) => {
   const { user } = useAuth();
 
   return (
-    <div className="relative group px-4 min-h-screen">
+    <div className="relative group px-4 py-0 md:py-2">
       <div className=" pointer-events-none flex flex-row items-center"></div>
 
-      <div className="border-b border-gray-900 rounded-lg shadow-sm max-w-[470px] mx-auto my-2 ">
+      <div className="border-b border-gray-900 rounded-lg shadow-sm max-w-[470px] mx-auto my-0 md:my-2">
         {/* Header: Avatar and Title */}
         <div className="flex items-center space-x-2 overflow-auto  ">
           <Link

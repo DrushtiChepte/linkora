@@ -6,9 +6,10 @@ import { Link, useParams } from "react-router";
 import { toast } from "sonner";
 
 const Profile = () => {
-  const { user, profile } = useAuth();
+  const { user } = useAuth();
   const { id } = useParams();
   const [posts, setPosts] = useState<any[]>([]);
+  const [profileData, setProfile] = useState<any>(null);
 
   const isCurrentUser = user?.id === id;
 
@@ -24,8 +25,24 @@ const Profile = () => {
     }
   };
 
+  const fetchProfile = async () => {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", id)
+      .single();
+    if (error) {
+      console.error("Error fetching profile:", error);
+    } else {
+      setProfile(data);
+    }
+  };
+
   useEffect(() => {
-    if (id) fetchPosts();
+    if (id) {
+      fetchPosts();
+      fetchProfile();
+    }
   }, [id]);
 
   const handleDelete = async (postId: string) => {
@@ -44,13 +61,13 @@ const Profile = () => {
         {/* Header Section */}
         <div className="flex items-center gap-5 mb-8 w-full max-w-2xl p-6 mt-10 md:p-10 rounded-2xl shadow-lg border border-white/30">
           <img
-            src={profile.profilePhoto || "/default-avatar.png"}
+            src={profileData.profilePhoto || "/default-avatar.png"}
             alt="profile"
             className="w-20 h-20 rounded-full border border-white/80 shadow-sm object-cover"
           />
           <div className="flex flex-col">
-            <p className="text-xl font-semibold">{profile.username}</p>
-            <p className="text-sm text-gray-500">@{profile.username}</p>
+            <p className="text-xl font-semibold">{profileData.username}</p>
+            <p className="text-sm text-gray-500">@{profileData.username}</p>
           </div>
           {isCurrentUser && (
             <Link to={`/edit-profile/${id}`} className="ml-auto">

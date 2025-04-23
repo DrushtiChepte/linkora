@@ -28,7 +28,6 @@ const SavedPosts = () => {
         id,
         username,
         profile_photo,
-        location
       )
     )
   `

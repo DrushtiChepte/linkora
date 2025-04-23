@@ -27,7 +27,7 @@ const SavedPosts = () => {
       profiles:creator_id (
         id,
         username,
-        profile_photo,
+        profile_photo
       )
     )
   `

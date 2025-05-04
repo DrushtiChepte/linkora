@@ -43,6 +43,7 @@ export const CreatePost = () => {
   const [location, setLocation] = useState<string>("");
   const [caption, setCaption] = useState<string>("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const Navigate = useNavigate();
 
   const { mutate, isPending, isError } = useMutation({
@@ -65,7 +66,9 @@ export const CreatePost = () => {
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
+      const file = e.target.files[0];
+      setSelectedFile(file);
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
@@ -97,6 +100,16 @@ export const CreatePost = () => {
           required
           onChange={handleFileChange}
         />
+        {previewUrl && (
+          <div className="w-full">
+            <p className="mb-2 text-sm sm:text-base font-medium">Preview:</p>
+            <img
+              src={previewUrl}
+              alt="Image Preview"
+              className="rounded-lg max-h-96 w-full object-cover border border-white/10"
+            />
+          </div>
+        )}
       </div>
       <div>
         <label

@@ -9,7 +9,7 @@ const HomePeopleList = () => {
   const { user, isLoading } = useAuth();
   const [profiles, setProfiles] = useState<any[]>([]);
   const [loadingUsers, setLoadingUsers] = useState<boolean>(false);
-  const [isFollowing, setIsFollowing] = useState(false);
+  const [followingSet, setFollowingSet] = useState<Set<string>>(new Set());
 
   //fetch all th users
   const fetchAllUsers = async () => {
@@ -36,8 +36,16 @@ const HomePeopleList = () => {
     getUsers();
   }, []);
 
-  const handleClick = () => {
-    setIsFollowing((prev) => !prev);
+  const handleClick = (profileId: string) => {
+    setFollowingSet((prevSet) => {
+      const newSet = new Set(prevSet);
+      if (newSet.has(profileId)) {
+        newSet.delete(profileId);
+      } else {
+        newSet.add(profileId);
+      }
+      return newSet;
+    });
   };
 
   return (
@@ -63,18 +71,18 @@ const HomePeopleList = () => {
                           className="w-15 h-15 rounded-full object-cover mb-2"
                         />
                       </Link>
-                      <h3 className="text-sm font-semibold text-[#ffffffd3]">
+                      <h3 className="text-sm font-semibold text-[#ffffffe3]">
                         {profile.username || "Unknown User"}
                       </h3>
                       <button
-                        onClick={handleClick}
+                        onClick={() => handleClick(profile.id)}
                         className={`w-full py-0.5 mt-2 sm:w-auto text-sm sm:text-base rounded-md px-4 transition duration-300 ${
-                          isFollowing
-                            ? "bg-gray-600 text-white"
+                          followingSet.has(profile.id)
+                            ? "bg-[#09090A] border-1 text-white"
                             : "gradient_button text-white"
                         }`}
                       >
-                        {isFollowing ? "Following" : "Follow"}
+                        {followingSet.has(profile.id) ? "Following" : "Follow"}
                       </button>
                     </div>
                   </li>

@@ -86,7 +86,7 @@ const CreateProfile = () => {
           <div>
             <label className="block pb-2 text-md font-medium">Username</label>
             <input
-              className="w-full p-2  rounded-xl dark:bg-zinc-800"
+              className="w-full p-2 border border-white/10 rounded-xl dark:bg-zinc-800"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -95,10 +95,13 @@ const CreateProfile = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium">
-              Profile Photo (optional)
-            </label>
-            <input type="file" accept="image/*" onChange={handleImage} />
+            <label className="block text-sm font-medium">Profile Photo</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImage}
+              required
+            />
             {preview && (
               <img
                 src={preview}

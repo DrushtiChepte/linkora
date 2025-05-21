@@ -1,54 +1,69 @@
-# React + TypeScript + Vite
+# 🌐 Linkora – Modern Social Media Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Linkora is a social media platform designed to connect people through a clean, minimalist interface and modern UX principles. Linkora is built using the latest web technologies. Linkora aims to provide users with a responsive, and fun social experience. ✨
 
-Currently, two official plugins are available:
+## 📸 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔐 User Authentication (Sign up, Login, Logout)
+- 📝 Create and share posts with captions & images
+- ❤️ Like & 💾 Save posts (combined interaction system)
+- 🔍 Explore trending posts
+- 👤 User profiles with editable avatars
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠 Tech Stack
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+**Frontend:**
+- React.js
+- Tailwind CSS v4 (no config file)
+- ShadCN UI Components
+
+**Backend:**
+- Supabase (PostgreSQL + Auth + Storage)
+
+**Other Tools:**
+- Vercel (deployment)
+
+
+---
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/your-username/linkora.git
+cd linkora
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Install dependencies:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
+
+Create a `.env.local` file and add your Supabase credentials:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+---
+
+## 🚀 Deployment
+
+Deploy directly on [Vercel](https://vercel.com/) with 1-click integration. Just make sure your environment variables are added in the Vercel dashboard.
+
+---
+
+## 🧠 Creator
+
+Made with 💙 by Drushti Chepte
